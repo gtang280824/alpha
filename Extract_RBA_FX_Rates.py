@@ -9,8 +9,9 @@ response.raise_for_status()
 
 excel_data = BytesIO(response.content)
 
-df = pd.read_excel(excel_data, sheet_name=None)
+# Read only the first sheet
+df = pd.read_excel(excel_data, sheet_name=0)
 
-for sheet_name, sheet_df in df.items():
-    sheet_df.to_csv(f"rba_fx_rates_{sheet_name}.csv", index=False)
-    print(f"Data saved to rba_fx_rates_{sheet_name}.csv")
+# Save the first sheet to a CSV file
+df.to_csv("rba_fx_rates_data.csv", index=False)
+print("Data saved to rba_fx_rates_data.csv")
